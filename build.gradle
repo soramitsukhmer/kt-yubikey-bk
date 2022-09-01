@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+publishing {
+    publications {
+        yubikeyMaven(MavenPublication) {
+            groupId = project.properties["group"].toString()
+            artifactId = "yubikey-kt"
+            version = project.properties["version"].toString()
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/soramitsukhmer/yubikey-kotlin")
+            credentials {
+                username = System.getenv("GIT_PUBLISH_USER")
+                password = System.getenv("GIT_PUBLISH_PASSWORD")
+            }
+        }
+    }
+}
+
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkus:quarkus-rest-client-reactive-jackson'
+
+    implementation 'com.yubico:yubico-validation-client2:3.1.0'
+    implementation 'io.dropwizard:dropwizard-core:2.1.1'
+    implementation 'io.quarkus:quarkus-resteasy-reactive-qute'
+
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
