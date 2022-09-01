@@ -26,3 +26,8 @@ application.properties
 yubikey.client-id={{VALUE}}
 yubikey.api-key={{VALUE}}
 ```
+
+*Note*:
+- We use library `com.yubico:yubico-validation-client` to validate yubikey otp.
+- The library above using wsapi url: `https://api.yubico.com/wsapi/2.0/verify` to verify otp from yubikey.
+- Generate your first Yubikey API key [here](https://upgrade.yubico.com/getapikey)

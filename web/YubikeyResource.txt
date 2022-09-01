@@ -6,7 +6,7 @@ import kh.org.soramitsu.yubikey.service.YubikeyClient;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
-
+import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @Path("/two-factor/webauthn")
@@ -21,14 +21,14 @@ public class YubikeyResource {
 
     @POST
     @Path("register")
-    public Boolean register(@Valid YubikeyRequest request) throws Exception {
-        return client.register(request.username, request.otp);
+    public Response register(@Valid YubikeyRequest request) throws Exception {
+        return Response.ok( client.register(request.username, request.otp)).build();
     }
 
 
     @Path("login")
     @POST
-    public Boolean login(@Valid YubikeyRequest request) throws Exception {
-        return client.login(request.username, request.otp);
+    public Response login(@Valid YubikeyRequest request) throws Exception {
+        return Response.ok( client.login(request.username, request.otp)).build();
     }
 }

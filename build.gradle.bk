@@ -34,6 +34,7 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkus:quarkus-rest-client-reactive-jackson'
     implementation 'com.yubico:yubico-validation-client2:3.1.0'
     implementation 'io.dropwizard:dropwizard-core:2.1.1'
 }
